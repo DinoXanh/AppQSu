@@ -84,3 +84,63 @@ const tanks = [
         description: "Churchill Mk VII có lớp giáp dày và khả năng vượt địa hình tốt, thường được sử dụng để hỗ trợ bộ binh trong các chiến dịch của Đồng Minh."
     }
 ];
+const sliderTrack = document.getElementById("sliderTrack");
+const sliderPrev = document.getElementById("sliderPrev");
+const sliderNext = document.getElementById("sliderNext");
+
+if (sliderTrack && sliderPrev && sliderNext) {
+    const slides = sliderTrack.querySelectorAll("a");
+
+    let currentSlide = 0;
+    let sliderInterval;
+
+    function showSlide(index) {
+        if (index >= slides.length) {
+            currentSlide = 0;
+        } else if (index < 0) {
+            currentSlide = slides.length - 1;
+        } else {
+            currentSlide = index;
+        }
+
+        sliderTrack.style.transform =
+            `translateX(-${currentSlide * 100}%)`;
+    }
+
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    function previousSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    function startSlider() {
+        clearInterval(sliderInterval);
+
+        sliderInterval = setInterval(() => {
+            nextSlide();
+        }, 4000);
+    }
+
+    sliderNext.addEventListener("click", () => {
+        nextSlide();
+        startSlider();
+    });
+
+    sliderPrev.addEventListener("click", () => {
+        previousSlide();
+        startSlider();
+    });
+
+    sliderTrack.addEventListener("mouseenter", () => {
+        clearInterval(sliderInterval);
+    });
+
+    sliderTrack.addEventListener("mouseleave", () => {
+        startSlider();
+    });
+
+    showSlide(0);
+    startSlider();
+}
