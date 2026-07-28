@@ -1,6 +1,6 @@
 const tanks = [
     {
-        name: "Panther Ausf.G",
+        name: "Panther ",
         country: "Germany",
         year: 1943,
         type: "Xe tăng hạng trung",
